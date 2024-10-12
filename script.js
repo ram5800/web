@@ -4,28 +4,26 @@ fetch(`https://api.jsonbin.io/b/${binId}`)
   .then(response => response.json())
   .then(data => {
     const bookList = document.getElementById('book-list');
-    data.books.forEach(book => {
+    data.forEach(book => { // Loop through the books array
       const bookItem = document.createElement('div');
       const title = document.createElement('h3');
       const author = document.createElement('p');
       const checkbox = document.createElement('input');
 
       checkbox.type = "checkbox";
-      checkbox.checked = book.haveRead; 
+      checkbox.checked = book.estado === 1; // Use "estado" for read status
 
-      title.textContent = book.title;
-      author.textContent = book.author;
+      title.textContent = book.Obra; // Use "Obra" for the book title
+      author.textContent = book.Autor; // Use "Autor" for the author
 
       checkbox.addEventListener('change', () => {
-        book.haveRead = checkbox.checked; 
+        book.estado = checkbox.checked ? 1 : 0; // Update "estado"
         updateJsonBin(data); // Update the data on JSONBin.io
       });
 
       bookItem.appendChild(title);
       bookItem.appendChild(author);
       bookItem.appendChild(checkbox);
-
-      // Add the bookItem to the book-list div
       bookList.appendChild(bookItem);
     });
   });
