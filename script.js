@@ -6,7 +6,7 @@ fetch(`https://api.jsonbin.io/b/${binId}`)
   .then(data => {
     const bookList = document.getElementById('book-list'); // Get the book-list div
 
-    data.forEach(book => {
+    data.record.forEach(book => {
       const bookItem = document.createElement('div');
       const title = document.createElement('h3');
       const author = document.createElement('p');
