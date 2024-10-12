@@ -35,7 +35,7 @@ fetch(`https://api.jsonbin.io/v3/b/${binId}`, { // Updated URL for v3
     });
   });
 
-unction updateJsonBin(updatedData) {
+function updateJsonBin(updatedData) {
   fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
     method: 'PUT',
     headers: {
