@@ -24,6 +24,8 @@ fetch(`https://api.jsonbin.io/b/${binId}`)
       bookItem.appendChild(title);
       bookItem.appendChild(author);
       bookItem.appendChild(checkbox);
+
+      // Add the bookItem to the book-list div
       bookList.appendChild(bookItem);
     });
   });
