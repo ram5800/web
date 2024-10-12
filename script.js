@@ -1,50 +1,66 @@
-const accessKey = "$2a$10$XKGw9XjvSAwKE5oQP"; // Replace with your actual access key
-const binId = "670ae9f8acd3cb34a895cc79"; // Replace with your actual JSONBin.io ID
+const binId = "670ade0fad19ca34f8b7526b"; // Replace with your actual JSONBin.io ID
+const apiKey = "$2a$10$TeKZWBg.uzaWTN8cMM8m/.FM3cK8OPY4wsZ/qphIreP7K7PJfEJhO"; // Replace with your actual API key
 
-fetch(`https://api.jsonbin.io/b/${binId}`)
-  .then(response => response.json())
-  .then(data => {
-    const bookList = document.getElementById('book-list'); // Get the book-list div
+function fetchData() {
+  const req = new XMLHttpRequest();
+  req.onreadystatechange = () => {
+    if (req.readyState === XMLHttpRequest.DONE) {
+      if (req.status === 200) {
+        const data = JSON.parse(req.responseText);
+        displayBookList(data); 
+      } else {
+        console.error('Error fetching data:', req.status, req.statusText);
+      }
+    }
+  };
+  req.open("GET", `https://api.jsonbin.io/v3/b/${binId}`, true);
+  req.setRequestHeader("X-Master-Key", apiKey); 
+  req.send();
+}
 
-    data.record.forEach(book => {
-      const bookItem = document.createElement('div');
-      const title = document.createElement('h3');
-      const author = document.createElement('p');
-      const checkbox = document.createElement('input');
+function displayBookList(data) {
+  const bookList = document.getElementById('book-list'); // Assuming you have a div with id 'book-list'
 
-      checkbox.type = "checkbox";
-      checkbox.checked = book.estado === 1;
+  data.forEach(book => {
+    const bookItem = document.createElement('div');
+    const title = document.createElement('h3');
+    const author = document.createElement('p');
+    const checkbox = document.createElement('input');
 
-      title.textContent = book.Obra;
-      author.textContent = book.Autor;
+    checkbox.type = "checkbox";
+    checkbox.checked = book.estado === 1; // Assuming you have an 'estado' property
 
-      checkbox.addEventListener('change', () => {
-        book.estado = checkbox.checked ? 1 : 0;
-        updateJsonBin(data);
-      });
+    title.textContent = book.Obra;  // Assuming you have an 'Obra' property
+    author.textContent = book.Autor; // Assuming you have an 'Autor' property
 
-      bookItem.appendChild(title);
-      bookItem.appendChild(author);
-      bookItem.appendChild(checkbox);
-
-      // *** This is the key line! ***
-      bookList.appendChild(bookItem); // Add the bookItem to the book-list div
-
+    checkbox.addEventListener('change', () => {
+      book.estado = checkbox.checked ? 1 : 0;
+      updateJsonBin(data);
     });
-  });
 
-function updateJsonBin(updatedData) {
-  fetch(`https://api.jsonbin.io/b/${binId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(updatedData)
-  })
-  .then(response => {
-    // Handle success (e.g., display a message)
-  })
-  .catch(error => {
-    // Handle errors
+    bookItem.appendChild(title);
+    bookItem.appendChild(author);
+    bookItem.appendChild(checkbox);
+    bookList.appendChild(bookItem); 
   });
 }
+
+function updateJsonBin(updatedData) {
+  const req = new XMLHttpRequest();
+  req.onreadystatechange = () => {
+    if (req.readyState === XMLHttpRequest.DONE) {
+      if (req.status === 200) {
+        console.log('Data updated successfully!');
+      } else {
+        console.error('Error updating data:', req.status, req.statusText);
+      }
+    }
+  };
+  req.open("PUT", `https://api.jsonbin.io/v3/b/${binId}`, true);
+  req.setRequestHeader("X-Master-Key", apiKey);
+  req.setRequestHeader('Content-Type', 'application/json');
+  req.send(JSON.stringify(updatedData));
+}
+
+// Call the function to fetch the data initially
+fetchData();
