@@ -18,28 +18,37 @@ function fetchData() {
   req.send();
 }
 
-function displayBookList(data) {
-  const bookList = document.getElementById('book-list'); // Assuming you have a div with id 'book-list'
+unction displayBookList(data) {
+  const bookList = document.getElementById('book-list');
 
   data.forEach(book => {
     const bookItem = document.createElement('div');
-    const title = document.createElement('h3');
-    const author = document.createElement('p');
+    const numero = document.createElement('p'); // Display "Numero"
+    const autor = document.createElement('p');
+    const obra = document.createElement('p'); // Display "Obra"
+    const paginas = document.createElement('p'); // Display "Paginas"
+    const notas = document.createElement('p'); // Display "Notas"
     const checkbox = document.createElement('input');
 
     checkbox.type = "checkbox";
-    checkbox.checked = book.estado === 1; // Assuming you have an 'estado' property
+    checkbox.checked = book.estado === 1; 
 
-    title.textContent = book.Obra;  // Assuming you have an 'Obra' property
-    author.textContent = book.Autor; // Assuming you have an 'Autor' property
+    numero.textContent = `Número: ${book.Numero}`;
+    autor.textContent = `Autor: ${book.Autor}`;
+    obra.textContent = `Obra: ${book.Obra}`;
+    paginas.textContent = `Páginas: ${book.Paginas}`;
+    notas.textContent = `Notas: ${book.Notas}`;
 
     checkbox.addEventListener('change', () => {
       book.estado = checkbox.checked ? 1 : 0;
       updateJsonBin(data);
     });
 
-    bookItem.appendChild(title);
-    bookItem.appendChild(author);
+    bookItem.appendChild(numero); 
+    bookItem.appendChild(autor);
+    bookItem.appendChild(obra);
+    bookItem.appendChild(paginas);
+    bookItem.appendChild(notas);
     bookItem.appendChild(checkbox);
     bookList.appendChild(bookItem); 
   });
