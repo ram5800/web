@@ -1,4 +1,4 @@
-const binId = "670ade0fad19ca34f8b7526b"; // Replace with your actual JSONBin.io ID
+const binId = "670ae9f8acd3cb34a895cc79"; // Replace with your actual JSONBin.io ID
 const accessKey = "$2a$10$XKGw9XjvSAwKE5oQP"; // Replace with your actual access key
 
 // Fetch initial data
