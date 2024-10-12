@@ -1,6 +1,13 @@
 const binId = "670ade0fad19ca34f8b7526b"; // Replace with your actual JSONBin.io ID
+const accessKey = "$2a$10$XKGw9XjvSAwKE5oQP/L1c.bIjFJP1vvp2mMyraSDGyNnXpcj1K75K"; // Replace with your actual access key
 
-fetch(`https://api.jsonbin.io/b/${binId}`)
+
+fetch(`https://api.jsonbin.io/v3/b/${binId}`, { // Updated URL for v3
+  headers: {
+    'X-Access-Key': accessKey,
+    'Content-Type': 'application/json'
+  }
+})
   .then(response => response.json())
   .then(data => {
     const bookList = document.getElementById('book-list');
@@ -28,10 +35,11 @@ fetch(`https://api.jsonbin.io/b/${binId}`)
     });
   });
 
-function updateJsonBin(updatedData) {
-  fetch(`https://api.jsonbin.io/b/${binId}`, {
+unction updateJsonBin(updatedData) {
+  fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
     method: 'PUT',
     headers: {
+      'X-Access-Key': accessKey, // Include access key here
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(updatedData)
