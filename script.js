@@ -5,7 +5,6 @@ const accessKey = "$2a$10$XKGw9XjvSAwKE5oQP/L1c.bIjFJP1vvp2mMyraSDGyNnXpcj1K75K"
 fetch(`https://api.jsonbin.io/v3/b/${binId}`, { // Updated URL for v3
   headers: {
     'X-Access-Key': accessKey,
-    'Content-Type': 'application/json'
   }
 })
   .then(response => response.json())
