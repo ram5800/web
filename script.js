@@ -2,25 +2,20 @@ const binId = "670ade0fad19ca34f8b7526b"; // Replace with your actual JSONBin.io
 const apiKey = "$2a$10$TeKZWBg.uzaWTN8cMM8m/.FM3cK8OPY4wsZ/qphIreP7K7PJfEJhO"; // Replace with your actual API key
 
 function fetchData() {
-  fetch(`https://cors-anywhere.herokuapp.com/https://api.jsonbin.io/v3/b/${binId}`, {
-    headers: {
-      'X-Master-Key': apiKey
-    }
-  })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
+  const req = new XMLHttpRequest();
+  req.onreadystatechange = () => {
+    if (req.readyState === XMLHttpRequest.DONE) {
+      if (req.status === 200) {
+        const data = JSON.parse(req.responseText);
+        displayBookList(data); 
       } else {
-        throw new Error('Network response was not ok');
+        console.error('Error fetching data:', req.status, req.statusText);
       }
-    })
-    .then(data => {
-      // ... your code to handle the data ...
-      displayBookList(data); 
-    })
-    .catch(error => {
-      console.error('Error fetching data:', error);
-    });
+    }
+  };
+  req.open("GET", `https://api.jsonbin.io/v3/b/${binId}`, true);
+  req.setRequestHeader("X-Master-Key", apiKey); 
+  req.send();
 }
 
 function displayBookList(data) {
