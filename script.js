@@ -37,7 +37,7 @@ fetch(`https://api.jsonbin.io/v3/b/${binId}`, { // Updated URL for v3
 
 function updateJsonBin(updatedData) {
   fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
-    method: 'PUT',
+    method: 'GET',
     headers: {
       'X-Access-Key': accessKey, // Include access key here
       'Content-Type': 'application/json'
