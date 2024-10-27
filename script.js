@@ -56,6 +56,11 @@ function displayBookList(data) {
     checkbox.checked = book.estado === 1;
     checkbox.disabled = true; // Solo visualización para evitar problemas de seguridad en GitHub Pages
 
+    // Cambiar la clase de la caja si el checkbox está marcado
+    if (checkbox.checked) {
+      bookItem.classList.add('checked');
+    }
+
     bookItem.appendChild(numero);
     bookItem.appendChild(autor);
     bookItem.appendChild(obra);
