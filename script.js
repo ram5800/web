@@ -91,8 +91,9 @@ function displayBookList(data) {
 function updateBookState() {
   const req = new XMLHttpRequest();
   req.open("PUT", `https://api.jsonbin.io/v3/b/${binId}`, true);
-  req.setRequestHeader("X-Master-Key", apiKey);
   req.setRequestHeader("Content-Type", "application/json");
+  req.setRequestHeader("X-Master-Key", "apiKey");
+  
 
   // Enviar el array de libros actualizado
   req.send(JSON.stringify(booksData));
