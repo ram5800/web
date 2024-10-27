@@ -10,13 +10,9 @@ function fetchData() {
           const response = JSON.parse(req.responseText);
           console.log("Respuesta completa desde JSONBin:", response); // Muestra la respuesta completa
 
-          // Vamos a probar con diferentes accesos para ver si "data" es un arreglo válido
+          // Comprobamos que la respuesta sea un arreglo
           if (Array.isArray(response)) {
             displayBookList(response);
-          } else if (response.record && Array.isArray(response.record)) {
-            displayBookList(response.record);
-          } else if (response.data && Array.isArray(response.data)) {
-            displayBookList(response.data);
           } else {
             console.error('Error: La respuesta no contiene un arreglo válido.', response);
           }
@@ -69,4 +65,5 @@ function displayBookList(data) {
 }
 
 // Llamar a la función para obtener los datos al cargar la página
+fetchData();// Llamar a la función para obtener los datos al cargar la página
 fetchData();
