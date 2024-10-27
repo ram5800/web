@@ -1,6 +1,9 @@
 const binId = "670ae9f8acd3cb34a895cc79"; // Replace with your actual JSONBin.io ID
 const apiKey = "$2a$10$XKGw9XjvSAwKE5oQP/L1c.bIjFJP1vvp2mMyraSDGyNnXpcj1K75K"; // Replace with your actual API key
 
+
+let booksData = []; // Array para almacenar los datos de los libros
+
 function fetchData() {
   const req = new XMLHttpRequest();
   req.onreadystatechange = () => {
@@ -12,7 +15,8 @@ function fetchData() {
 
           // Comprobamos que la respuesta sea un arreglo
           if (Array.isArray(response)) {
-            displayBookList(response);
+            booksData = response; // Almacenar los datos de los libros
+            displayBookList(booksData);
           } else {
             console.error('Error: La respuesta no contiene un arreglo válido.', response);
           }
@@ -25,7 +29,7 @@ function fetchData() {
       }
     }
   };
-  
+
   req.open("GET", `https://api.jsonbin.io/v3/b/${binId}/latest?meta=false`, true);
   req.setRequestHeader("X-Master-Key", apiKey);
   req.send();
@@ -35,7 +39,7 @@ function displayBookList(data) {
   const bookList = document.getElementById('book-list');
   bookList.innerHTML = ""; // Limpiar contenido previo
 
-  data.forEach(book => {
+  data.forEach((book, index) => {
     const bookItem = document.createElement('div');
     bookItem.classList.add('book-item');
 
@@ -53,13 +57,24 @@ function displayBookList(data) {
     notas.textContent = `Notas: ${book.Notas || 'N/A'}`;
 
     checkbox.type = "checkbox";
-    checkbox.checked = book.estado === 1;
-    checkbox.disabled = false; // Solo visualización para evitar problemas de seguridad en GitHub Pages, poner en true si quieres deshabilitarlo.
+    checkbox.checked = book.estado === 1; // Verifica si el libro está marcado como leído
 
     // Cambiar la clase de la caja si el checkbox está marcado
     if (checkbox.checked) {
       bookItem.classList.add('checked');
     }
+
+    // Manejar el evento de cambio en el checkbox
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        bookItem.classList.add('checked'); // Añadir la clase checked
+        book.estado = 1; // Cambiar el estado a leído
+      } else {
+        bookItem.classList.remove('checked'); // Remover la clase checked
+        book.estado = 0; // Cambiar el estado a no leído
+      }
+      updateBookState(index); // Actualizar el estado del libro en JSONBin
+    });
 
     bookItem.appendChild(numero);
     bookItem.appendChild(autor);
@@ -69,6 +84,27 @@ function displayBookList(data) {
     bookItem.appendChild(checkbox);
     bookList.appendChild(bookItem);
   });
+}
+
+// Función para actualizar el estado del libro en JSONBin
+function updateBookState(index) {
+  const req = new XMLHttpRequest();
+  req.open("PUT", `https://api.jsonbin.io/v3/b/${binId}`, true);
+  req.setRequestHeader("X-Master-Key", apiKey);
+  req.setRequestHeader("Content-Type", "application/json");
+
+  // Enviar el array de libros actualizado
+  req.send(JSON.stringify(booksData));
+
+  req.onreadystatechange = () => {
+    if (req.readyState === XMLHttpRequest.DONE) {
+      if (req.status === 200) {
+        console.log("Estado del libro actualizado exitosamente");
+      } else {
+        console.error('Error actualizando el estado del libro:', req.status, req.statusText);
+      }
+    }
+  };
 }
 
 // Llamar a la función para obtener los datos al cargar la página
