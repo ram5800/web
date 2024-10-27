@@ -1,23 +1,24 @@
 const binId = "670ae9f8acd3cb34a895cc79"; // Replace with your actual JSONBin.io ID
 const apiKey = "$2a$10$XKGw9XjvSAwKE5oQP/L1c.bIjFJP1vvp2mMyraSDGyNnXpcj1K75K"; // Replace with your actual API key
 
-function fetchData() {
+ffunction fetchData() {
   const req = new XMLHttpRequest();
   req.onreadystatechange = () => {
     if (req.readyState === XMLHttpRequest.DONE) {
       if (req.status === 200) {
         try {
           const response = JSON.parse(req.responseText);
-          console.log("Respuesta completa desde JSONBin:", response); // Muestra la respuesta completa en consola
+          console.log("Respuesta completa desde JSONBin:", response); // Muestra la respuesta completa
 
-          const data = response.record; // Usamos .record para extraer el JSON sin metadatos
-          console.log("Contenido de data:", data); // Verifica si `data` es un arreglo
-
-          // Verificar si `data` es un arreglo antes de llamar a displayBookList
-          if (Array.isArray(data)) {
-            displayBookList(data);
+          // Vamos a probar con diferentes accesos para ver si "data" es un arreglo válido
+          if (Array.isArray(response)) {
+            displayBookList(response);
+          } else if (response.record && Array.isArray(response.record)) {
+            displayBookList(response.record);
+          } else if (response.data && Array.isArray(response.data)) {
+            displayBookList(response.data);
           } else {
-            console.error('Error: La respuesta no contiene un arreglo válido.', data);
+            console.error('Error: La respuesta no contiene un arreglo válido.', response);
           }
         } catch (error) {
           console.error('Error al analizar JSON:', error);
