@@ -1,0 +1,30 @@
+/* styles.css */
+
+/* Estilo para el contenedor de la lista de libros */
+#book-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espacio entre las cajas */
+    padding: 20px; /* Espacio interno del contenedor */
+}
+
+/* Estilo para cada caja de libro */
+.book-item {
+    background-color: #f9f9f9; /* Color de fondo de la caja */
+    border: 1px solid #ddd; /* Borde de la caja */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 15px; /* Espacio interno de la caja */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+    width: 200px; /* Ancho fijo para las cajas */
+    transition: background-color 0.3s; /* Transición suave al cambiar el color de fondo */
+}
+
+/* Estilo para el texto dentro de cada caja */
+.book-item p {
+    margin: 5px 0; /* Espaciado entre párrafos */
+}
+
+/* Estilo para el checkbox marcado */
+.book-item.checked {
+    background-color: #c8e6c9; /* Color de fondo cuando el checkbox está marcado */
+}
