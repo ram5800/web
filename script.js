@@ -54,7 +54,7 @@ function displayBookList(data) {
 
     checkbox.type = "checkbox";
     checkbox.checked = book.estado === 1;
-    checkbox.disabled = true; // Solo visualización para evitar problemas de seguridad en GitHub Pages
+    checkbox.disabled = false; // Solo visualización para evitar problemas de seguridad en GitHub Pages, poner en true si quieres deshabilitarlo.
 
     // Cambiar la clase de la caja si el checkbox está marcado
     if (checkbox.checked) {
