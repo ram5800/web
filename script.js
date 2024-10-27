@@ -6,9 +6,19 @@ function fetchData() {
   req.onreadystatechange = () => {
     if (req.readyState === XMLHttpRequest.DONE) {
       if (req.status === 200) {
-        const response = JSON.parse(req.responseText);
-        const data = response.record; // Usamos .record para extraer el JSON sin metadatos
-        displayBookList(data);
+        try {
+          const response = JSON.parse(req.responseText);
+          const data = response.record; // Usamos .record para extraer el JSON sin metadatos
+
+          // Verificar si `data` es un arreglo antes de llamar a displayBookList
+          if (Array.isArray(data)) {
+            displayBookList(data);
+          } else {
+            console.error('Error: La respuesta no contiene un arreglo válido.', data);
+          }
+        } catch (error) {
+          console.error('Error al analizar JSON:', error);
+        }
       } else {
         console.error('Error fetching data:', req.status, req.statusText);
       }
@@ -56,4 +66,3 @@ function displayBookList(data) {
 
 // Llamar a la función para obtener los datos al cargar la página
 fetchData();
-
