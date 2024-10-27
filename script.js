@@ -1,5 +1,5 @@
 const binId = "670ae9f8acd3cb34a895cc79"; // Replace with your actual JSONBin.io ID
-const apiKey = "$2a$10$XKGw9XjvSAwKE5oQP/L1c.bIjFJP1vvp2mMyraSDGyNnXpcj1K75K"; // Replace with your actual API key
+const apiKey = "$2a$10$TeKZWBg.uzaWTN8cMM8m/.FM3cK8OPY4wsZ/qphIreP7K7PJfEJhO"; // Replace with your actual API key
 
 
 let booksData = []; // Array para almacenar los datos de los libros
