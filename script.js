@@ -8,7 +8,10 @@ function fetchData() {
       if (req.status === 200) {
         try {
           const response = JSON.parse(req.responseText);
+          console.log("Respuesta completa desde JSONBin:", response); // Muestra la respuesta completa en consola
+
           const data = response.record; // Usamos .record para extraer el JSON sin metadatos
+          console.log("Contenido de data:", data); // Verifica si `data` es un arreglo
 
           // Verificar si `data` es un arreglo antes de llamar a displayBookList
           if (Array.isArray(data)) {
