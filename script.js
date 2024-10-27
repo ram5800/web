@@ -8,7 +8,7 @@ function fetchData() {
       if (req.status === 200) {
         try {
           const response = JSON.parse(req.responseText);
-          console.log("Respuesta completa desde JSONBin:", response); // Muestra la respuesta completa
+          console.log("Respuesta completa desde JSONBin:", response); // Imprime la respuesta como objeto
 
           // Comprobamos que la respuesta sea un arreglo
           if (Array.isArray(response)) {
@@ -18,14 +18,16 @@ function fetchData() {
           }
         } catch (error) {
           console.error('Error al analizar JSON:', error);
+          console.error('Texto de respuesta:', req.responseText); // Muestra el texto de respuesta original
         }
       } else {
         console.error('Error fetching data:', req.status, req.statusText);
       }
     }
   };
-  req.open("GET", `https://api.jsonbin.io/v3/b/${binId}/latest?meta=false`, true); // Endpoint y parámetro meta=false
-  req.setRequestHeader("X-Master-Key", apiKey); // Incluye la API Key
+  
+  req.open("GET", `https://api.jsonbin.io/v3/b/${binId}/latest?meta=false`, true);
+  req.setRequestHeader("X-Master-Key", apiKey);
   req.send();
 }
 
@@ -65,5 +67,4 @@ function displayBookList(data) {
 }
 
 // Llamar a la función para obtener los datos al cargar la página
-fetchData();// Llamar a la función para obtener los datos al cargar la página
 fetchData();
