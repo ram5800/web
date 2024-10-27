@@ -1,7 +1,7 @@
 const binId = "670ae9f8acd3cb34a895cc79"; // Replace with your actual JSONBin.io ID
 const apiKey = "$2a$10$XKGw9XjvSAwKE5oQP/L1c.bIjFJP1vvp2mMyraSDGyNnXpcj1K75K"; // Replace with your actual API key
 
-ffunction fetchData() {
+function fetchData() {
   const req = new XMLHttpRequest();
   req.onreadystatechange = () => {
     if (req.readyState === XMLHttpRequest.DONE) {
