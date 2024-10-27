@@ -1,5 +1,5 @@
 const binId = "670ae9f8acd3cb34a895cc79"; // Replace with your actual JSONBin.io ID
-const apiKey = "$2a$10$TeKZWBg.uzaWTN8cMM8m/.FM3cK8OPY4wsZ/qphIreP7K7PJfEJhO"; // Replace with your actual API key
+const apiKey = "$2a$10$rcLfHTG1AZqpMkqFpZuoyeJO0eUpr.hK0/Y9p/ntIrA8dHqPAfVhO"; // Replace with your actual API key
 
 
 let booksData = []; // Array para almacenar los datos de los libros
@@ -92,7 +92,7 @@ function updateBookState() {
   const req = new XMLHttpRequest();
   req.open("PUT", `https://api.jsonbin.io/v3/b/${binId}`, true);
   req.setRequestHeader("Content-Type", "application/json");
-  req.setRequestHeader("X-Master-Key", "apiKey");
+  req.setRequestHeader("X-Master-Key", apiKey);
   
 
   // Enviar el array de libros actualizado
